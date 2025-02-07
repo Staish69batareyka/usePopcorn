@@ -1,3 +1,5 @@
+import React from "react";
+import "./App.css";
 
 // https://www.omdbapi.com/?apikey=${KEY}&s=${query}
 const tempMovieData = [
@@ -212,4 +214,3 @@ function App() {
 }
 
 export default App;
-
