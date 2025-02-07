@@ -1,8 +1,8 @@
 import React from 'react'
-import Search from './Search'
-import NumResults from './NumResults'
+import {Search} from './Search'
+import {NumResults} from './NumResults'
 
-function Navbar() {
+export function Navbar() {
   return (
     <nav className="nav-bar">
     <div className="logo">
@@ -15,4 +15,4 @@ function Navbar() {
   )
 }
 
-export default Navbar
+// export default Navbar

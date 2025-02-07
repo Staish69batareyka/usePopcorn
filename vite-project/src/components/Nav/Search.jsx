@@ -1,10 +1,10 @@
 import React from 'react'
 
-function Search() {
+export function Search() {
   return (
     <input className="search" type="text" placeholder="Search movies..." />
 
   )
 }
 
-export default Search
+// export default Search

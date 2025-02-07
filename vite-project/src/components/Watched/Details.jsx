@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Details() {
+export function Details() {
   return (
     <div className="details">
             <header>
@@ -79,4 +79,4 @@ function Details() {
   )
 }
 
-export default Details
+// export default Details

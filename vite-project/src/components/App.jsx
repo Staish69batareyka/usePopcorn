@@ -1,13 +1,10 @@
 import React from "react";
-import "./App.css";
-import Navbar from "./Nav/Navbar";
-import Box from "./Box";
-import List from "./List";
-import Details from "./Watched/Details";
-import Summary from "./Watched/Summary";
-import Movie from "./Movies/Movie";
-import Watched from "./Watched/Watched";
-import Error from "./Error";
+
+import {Navbar} from "./Nav";
+import {Watched} from "./Watched";
+import { Movie } from "./Movies";
+
+
 
 // https://www.omdbapi.com/?apikey=${KEY}&s=${query}
 const tempMovieData = [
@@ -64,20 +61,9 @@ function App() {
 
       <main className="main">
 
-        <Box>
-          <Error></Error>
-          <List className="list-movies">
-            <Movie></Movie>
-          </List>
-        </Box>
-
-        <Box>
-          <Details></Details>
-          <Summary></Summary>
-          <List> 
-            <Watched></Watched>
-          </List>
-        </Box>
+        
+        <Movie></Movie>
+        <Watched></Watched>
           
         
       </main>

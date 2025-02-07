@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Box({children}) {
+export function Box({children}) {
   return (
     <div className="box">
         <button className="btn-toggle">–</button>
@@ -8,5 +8,3 @@ function Box({children}) {
     </div>
   )
 }
-
-export default Box
