@@ -92,7 +92,7 @@ const tempWatchedData = [
 export function App() {
 
   const [numResults, setNumResults] = useState(0)
-
+  const [isLoading, setIsLoading] = useState(false)
   const abortController = useRef(null)
  
   async function searchHandler(value){
@@ -102,12 +102,15 @@ export function App() {
     }
     const controller = new AbortController()
     abortController.current = controller
-    const data = await getMovies(value, controller)
+
+    // setIsLoading(true)
+    const data = await getMovies(value, controller, setIsLoading)
+    // setIsLoading(false) перенесли в api.js
     setNumResults(data?.totalResults || 0)
   }
 
   useEffect(() =>{      // Используется, чтобы подчищать запросы (очистка предыдущих запросов)
-    return () => {
+    return () => {      // Есть косяк. Хорошо работает только тогда, когда быстро печатаешь
       if(abortController.current){
         abortController.current.abort()
       }  
@@ -117,14 +120,9 @@ export function App() {
   return (
     <>
       <Navbar onSearch={searchHandler} numResults={numResults}></Navbar>
-
       <main className="main">
-
-        
-        <Movie></Movie>
+        <Movie isLoading={isLoading}></Movie>
         <Watched></Watched>
-          
-        
       </main>
     </>
   );
