@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import {Navbar} from "./Nav";
-import {Watched} from "./Watched";
-import { Movie } from "./Movies";
+import {Navbar} from "../Nav";
+import {Watched} from "../Watched";
+import { Movie } from "../Movies";
+import { getMovies } from "./api";
+
+import {debounce} from 'lodash'
 
 
 
@@ -54,10 +57,33 @@ const tempWatchedData = [
   },
 ];
 
-function App() {
+export function App() {
+
+    const [numResults, setNumResults] = useState(0)
+ 
+    const debounceSearch = debounce(async (value) => {
+      const data = await getMovies(value)
+      return data
+    }, 2000)
+  
+
+  async function searchHandler(value){
+    const data = await debounceSearch(value)
+    if (data){
+      setNumResults(data.totalResults)
+    }
+    
+  }
+
+  useEffect(() =>{
+    return () => {
+      debounceSearch.cancel()
+    }
+  }, [debounceSearch])
+
   return (
     <>
-      <Navbar></Navbar>
+      <Navbar onSearch={searchHandler} numResults={numResults}></Navbar>
 
       <main className="main">
 
@@ -71,4 +97,4 @@ function App() {
   );
 }
 
-export default App;
+// export default App;

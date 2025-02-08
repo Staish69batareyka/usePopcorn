@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export function Search() {
+export function Search({onSearch}) {
+
+  const [value, setValue] = useState("")
+
+  function changeHandler(){
+
+    setValue(event.target.value)
+    onSearch(event.target.value)
+
+  }
+
   return (
-    <input className="search" type="text" placeholder="Search movies..." />
+    <input onChange={changeHandler} value={value} className="search" type="text" placeholder="Search movies..." />
 
   )
 }

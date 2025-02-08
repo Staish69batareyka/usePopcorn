@@ -1,9 +1,9 @@
 import React from 'react'
 
-export function NumResults() {
+export function NumResults({numResults}) {
   return (
     <p className="num-results">
-    Found <strong>120</strong> results
+    Found <strong>{numResults}</strong> results
   </p>
   )
 }
