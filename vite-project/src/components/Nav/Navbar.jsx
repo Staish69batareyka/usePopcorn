@@ -2,7 +2,7 @@ import React from 'react'
 import {Search} from './Search'
 import {NumResults} from './NumResults'
 
-export function Navbar({onSearch, NumResults}) {
+export function Navbar({onSearch, numResults}) {
   return (
     <nav className="nav-bar">
     <div className="logo">

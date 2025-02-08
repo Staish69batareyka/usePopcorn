@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import {Navbar} from "../Nav";
 import {Watched} from "../Watched";
@@ -57,29 +57,62 @@ const tempWatchedData = [
   },
 ];
 
+// export function App() {
+
+//   const [numResults, setNumResults] = useState(0)
+ 
+//   const searchHandler = debounce(async (value) => {
+//     const data = await getMovies(value)
+    
+//     setNumResults(data?.totalResults || 0)
+//   }, 2000)
+
+//   useEffect(() =>{
+//     return () => {
+//       searchHandler.cancel()
+//     }
+//   }, [searchHandler])
+
+//   return (
+//     <>
+//       <Navbar onSearch={searchHandler} numResults={numResults}></Navbar>
+
+//       <main className="main">
+
+        
+//         <Movie></Movie>
+//         <Watched></Watched>
+          
+        
+//       </main>
+//     </>
+//   );
+// }
+
 export function App() {
 
-    const [numResults, setNumResults] = useState(0)
- 
-    const debounceSearch = debounce(async (value) => {
-      const data = await getMovies(value)
-      return data
-    }, 2000)
-  
+  const [numResults, setNumResults] = useState(0)
 
+  const abortController = useRef(null)
+ 
   async function searchHandler(value){
-    const data = await debounceSearch(value)
-    if (data){
-      setNumResults(data.totalResults)
+
+    if(abortController.current){
+      abortController.current.abort()
     }
-    
+    const controller = new AbortController()
+    abortController.current = controller
+    const data = await getMovies(value, controller)
+    setNumResults(data?.totalResults || 0)
   }
 
-  useEffect(() =>{
+  useEffect(() =>{      // Используется, чтобы подчищать запросы (очистка предыдущих запросов)
     return () => {
-      debounceSearch.cancel()
+      if(abortController.current){
+        abortController.current.abort()
+      }  
     }
-  }, [debounceSearch])
+  }, [])
 
   return (
     <>
@@ -97,4 +130,5 @@ export function App() {
   );
 }
 
-// export default App;
+
+
