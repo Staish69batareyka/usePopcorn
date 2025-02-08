@@ -3,7 +3,7 @@ import React from 'react'
 export function Error() {
   return (
     <p className="error">
-        <span>⛔️</span> error
+        <span>⛔️</span> Movie not found
     </p>
   )
 }

@@ -5,11 +5,18 @@ import {List} from '../List'
 import {MovieItem} from './MovieItem'
 import { Spinner } from '../Spinner'
 
-export  function Movie({isLoading}) {
+export  function Movie({isLoading, isError}) {
   return (
     <Box>
-      <Error></Error>
-      {isLoading && <Spinner></Spinner>}
+      
+      {isError && <Error></Error>}
+      {isLoading && 
+
+      <div className='spinner-wrapper'>
+        <Spinner></Spinner>
+      </div>
+      
+      }
       <List className="list-movies">
         <MovieItem></MovieItem>
       </List>

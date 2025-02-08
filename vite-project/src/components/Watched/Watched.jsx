@@ -1,8 +1,8 @@
 import React from 'react'
-import {Box} from '../Box'
+import {Box} from '../Box/Box'
 import { Details } from './Details'
 import { Summary } from './Summary'
-import {List} from '../List'
+import {List} from '../List/List'
 import { WatchedItem } from './WatchedItem'
 
 export function Watched() {
