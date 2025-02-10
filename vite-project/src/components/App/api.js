@@ -67,7 +67,7 @@ export async function  getMovies(query, controller){
 
         const data = await resp.json()
 
-        if (data.Response === "False") throw new Error("Can't finde some movies");
+        if (data.Response === "False") throw new Error("Can't find some movies");
         
         return data
         
@@ -75,6 +75,29 @@ export async function  getMovies(query, controller){
         
         if(error.name === "AbortError"){
             console.log('предыдущий запрос отменён')
+        } 
+    }
+}
+
+
+export async function  getMovieDescription(id){
+
+    try {
+    
+        const resp = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`)
+    
+        if (!resp.ok) throw new Error("Request error")
+
+        const data = await resp.json()
+
+        if (data.Response === "False") throw new Error("Can't find the movie");
+        
+        return data
+        
+    } catch (error) {
+        
+        if(error.name === "AbortError"){
+            console.log('error')
         } 
     }
 }

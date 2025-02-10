@@ -93,6 +93,7 @@ export function App() {
   const [isError, setIsError] = useState(false)
   const [movies, setIsMovies] = useState([])
   const abortController = useRef(null)
+  const [activeMovie, setActiveMovie] = useState()
  
   async function searchHandler(value){
     if(!value){
@@ -134,8 +135,8 @@ export function App() {
 
       <Navbar onSearch={searchHandler} numResults={numResults}></Navbar>
       <main className="main">    
-        <MovieBlock isLoading={isLoading} isError={isError} movies={movies}></MovieBlock>
-        <WatchedBlock></WatchedBlock>
+        <MovieBlock isLoading={isLoading} isError={isError} movies={movies} activeMovie={activeMovie} setActiveMovie={setActiveMovie}></MovieBlock>
+        <WatchedBlock id={activeMovie}></WatchedBlock>
       </main>
     </>
   );
