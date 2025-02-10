@@ -164,7 +164,7 @@ body {
   transition: all 0.3s;
 }
 
-.list.list-movies li:hover {
+.list.list-movies li:hover, .list.list-movies li.active {
   background-color: var(--color-background-100);
 }
 

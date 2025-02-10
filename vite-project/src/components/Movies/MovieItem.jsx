@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export function MovieItem({movie}) {
+export function MovieItem({movie, isActive, movieClickHandler}) {
+
+
 
   return (
-    <li>
+    <li onClick={movieClickHandler} className={isActive ? "active" : ""}>
       <img
         src={movie.Poster}
         alt={movie.Title}
