@@ -7,13 +7,7 @@ import { Spinner } from '../Spinner'
 
 export  function MovieBlock({isLoading, isError, movies}) {
 
-  const [isActive, setIsActive] = useState(false)
-  
-  function movieClickHandler(){
-    setIsActive((prev) => !prev)
-    
-  }
-
+  const [activeMovie, setActiveMovie] = useState()
 
   return (
     <Box>
@@ -28,7 +22,7 @@ export  function MovieBlock({isLoading, isError, movies}) {
       }
       <List className="list-movies">
         {
-          movies && movies.map((item, ind) => (<MovieItem key={ind} movie={item} isActive={isActive} movieClickHandler={movieClickHandler}></MovieItem>))
+          movies && movies.map((item, ind) => (<MovieItem key={ind} movie={item} isActive={activeMovie === item.imdbID ? true : false} setActiveMovie={setActiveMovie}></MovieItem>))
         }
       </List>
 
