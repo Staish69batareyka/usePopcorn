@@ -4,18 +4,26 @@ import { Details } from './Details'
 import { Summary } from './Summary'
 import {List} from '../List/List'
 import { WatchedItem } from './WatchedItem'
+import { Spinner } from '../Spinner'
 
 export function WatchedBlock({id}) {
   return (
     <Box>
+
       {
         id && <Details id={id}></Details>
       }
-        
-      <Summary></Summary>
-      <List>
-        <WatchedItem></WatchedItem>
-      </List>
+      {
+        !id && (
+          <>
+            <Summary></Summary>
+            <List>
+              <WatchedItem></WatchedItem>
+            </List>
+          </>
+        )
+      }
+      
     </Box>
     
   )
