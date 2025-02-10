@@ -7,24 +7,23 @@ import { Spinner } from '../Spinner'
 
 export  function Movie({isLoading, isError, movies}) {
 
-  
   return (
     <Box>
       
       {isError && <Error></Error>}
       {isLoading && 
 
-      <div className='spinner-wrapper'>
-        <Spinner></Spinner>
-      </div>
+        <div className='spinner-wrapper'>
+          <Spinner></Spinner>
+        </div>
       
       }
       <List className="list-movies">
         {
           movies && movies.map((item, ind) => (<MovieItem key={ind} movie={item}></MovieItem>))
         }
-        
       </List>
+
     </Box>
   )
 }
