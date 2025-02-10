@@ -44,8 +44,6 @@ export async function  getMovies(query, controller, setIsLoading, setIsError){
         
         return data
         
-        
-        
     } catch (error) {
         
         if(error.name === "AbortError"){

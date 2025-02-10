@@ -5,7 +5,9 @@ import {List} from '../List'
 import {MovieItem} from './MovieItem'
 import { Spinner } from '../Spinner'
 
-export  function Movie({isLoading, isError}) {
+export  function Movie({isLoading, isError, movies}) {
+
+  
   return (
     <Box>
       
@@ -18,7 +20,10 @@ export  function Movie({isLoading, isError}) {
       
       }
       <List className="list-movies">
-        <MovieItem></MovieItem>
+        {
+          movies && movies.map((item, ind) => (<MovieItem key={ind} movie={item}></MovieItem>))
+        }
+        
       </List>
     </Box>
   )
