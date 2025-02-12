@@ -5,18 +5,18 @@ import {List} from '../../List'
 import {MovieItem} from './MovieItem'
 import { Spinner } from '../../Spinner'
 
-export  function MovieBlock({isLoading, isError, movies, activeMovie, setActiveMovie}) {
+export  function MovieBlock({isLoading, error, movies, activeMovie, setActiveMovie}) {
 
 
   return (
     <Box>
       
-      {isError && <Error></Error>}
+      {error && <Error></Error>}
       {isLoading && 
 
-        <div className='spinner-wrapper'>
+        (<div className='spinner-wrapper'>
           <Spinner></Spinner>
-        </div>
+        </div>)
       
       }
       <List className="list-movies">

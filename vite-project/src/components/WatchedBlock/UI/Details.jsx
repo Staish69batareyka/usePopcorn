@@ -1,12 +1,14 @@
 
+import { Error } from '../../Error'
 import { Spinner } from '../../Spinner'
 import { StarRating } from '../../StarRating/UI/StarRating'
 import { useGetMovieDescription } from '../model/useGetMovieDescription'
 
 export function Details({id}) {
-    const{description, isLoading} = useGetMovieDescription(id)
+    const{description, isLoading, errorMSG} = useGetMovieDescription(id)
   
   if (isLoading) return <div className="spinner-wrapper"><Spinner/></div> 
+  else if(errorMSG) return <Error msg={errorMSG}></Error>
   
   return (
     <div className="details">

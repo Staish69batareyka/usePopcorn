@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { getMovies } from "../../api";
+import { getMovies } from "../api";
 
 export function useGetMovies(){
     
   const [numResults, setNumResults] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
-  const [isError, setIsError] = useState(false)
+  const [error, setError] = useState()
   const [movies, setIsMovies] = useState([])
   const [activeMovie, setActiveMovie] = useState()
   const abortController = useRef(null)
 
   async function searchHandler(value){
     if(!value){
-      setIsError(false)
+      setError()
       setNumResults(0)
       return
     }
@@ -26,15 +26,28 @@ export function useGetMovies(){
 
     // console.log(isError);
     setIsLoading(true)
-    setIsError(false)
+    setError()
+    try{
+      const data = await getMovies(value, controller)
+      if (data.Response === "False") throw new Error("Can't find the movie")
+      
 
-    const data = await getMovies(value, controller)
+      !data ? setError(true) : setError(false)
+      setIsMovies(data.Search)
+      setNumResults(data?.totalResults || 0)
 
+    }catch(error){
+      if(error.name !== AbortController){
+        console.log(error)
+        setIsMovies([])
+        setError(error.message)
+      }
+      
+    }
+    
     setIsLoading(false)
 
-    !data ? setIsError(true) : setIsError(false)
-    data?.Search ? setIsMovies(data.Search) : setIsMovies([])
-    setNumResults(data?.totalResults || 0)
+    
   }
 
   useEffect(() =>{      // Используется, чтобы подчищать запросы (очистка предыдущих запросов)
@@ -45,5 +58,5 @@ export function useGetMovies(){
     }
   }, [])
 
-  return {searchHandler, numResults, isLoading, isError, movies, activeMovie, setActiveMovie}
+  return {searchHandler, numResults, isLoading, error, movies, activeMovie, setActiveMovie}
 }

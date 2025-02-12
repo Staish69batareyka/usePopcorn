@@ -2,7 +2,7 @@
 import {Navbar} from "../../Nav";
 import { WatchedBlock} from "../../WatchedBlock";
 import { MovieBlock } from "../../Movies";
-import { useGetMovies } from "./model/useGetMovies";
+import { useGetMovies } from "../model/useGetMovies";
 
 // https://www.omdbapi.com/?apikey=${KEY}&s=${query}
 
@@ -87,14 +87,14 @@ import { useGetMovies } from "./model/useGetMovies";
 
 export function App() {
 
-  const {searchHandler, numResults, isLoading, isError, movies, activeMovie, setActiveMovie} = useGetMovies()
+  const {searchHandler, numResults, isLoading, error, movies, activeMovie, setActiveMovie} = useGetMovies()
 
 
   return (
     <>
       <Navbar onSearch={searchHandler} numResults={numResults}></Navbar>
       <main className="main">    
-        <MovieBlock isLoading={isLoading} isError={isError} movies={movies} activeMovie={activeMovie} setActiveMovie={setActiveMovie}></MovieBlock>
+        <MovieBlock isLoading={isLoading} error={error} movies={movies} activeMovie={activeMovie} setActiveMovie={setActiveMovie}></MovieBlock>
         <WatchedBlock id={activeMovie}></WatchedBlock>
       </main>
     </>
