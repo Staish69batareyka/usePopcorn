@@ -1,6 +1,4 @@
-const API_KEY = '4fdf57d3'
-
-
+// const API_KEY = '4fdf57d3'
 
 // export async function  getMovies(query){
 
@@ -61,7 +59,7 @@ export async function  getMovies(query, controller){
 
     try {
     
-        const resp = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${query}`, {signal: controller.signal})
+        const resp = await fetch(`/api?apikey=${import.meta.env.VITE_API_KEY}&s=${query}`, {signal: controller.signal})
     
         if (!resp.ok) throw new Error("Request error")
 
@@ -84,7 +82,7 @@ export async function  getMovieDescription(id){
 
     try {
     
-        const resp = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`)
+        const resp = await fetch(`/api?apikey=${import.meta.env.VITE_API_KEY}&i=${id}`)
     
         if (!resp.ok) throw new Error("Request error")
 

@@ -1,28 +1,12 @@
-import React, { useEffect, useState } from 'react'
-import { getMovieDescription } from '../App/api'
-import { Spinner } from '../Spinner'
-import { StarRating } from '../StarRating/StarRating'
+
+import { Spinner } from '../../Spinner'
+import { StarRating } from '../../StarRating/UI/StarRating'
+import { useGetMovieDescription } from '../model/useGetMovieDescription'
 
 export function Details({id}) {
-  const [description, setDescription] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+    const{description, isLoading} = useGetMovieDescription(id)
   
-
-  
-  useEffect(()=>{
-    setIsLoading(true)
-    getMovieDescription(id).then((data) => { 
-        setDescription(data)
-        setIsLoading(false)
-  
-    // async function getDescription() {    <------- То же самое, что и вверху, но не так круто
-    //   const data = await getMovieDescription(id)
-    //     setDescription(data)
-    // }
-    // getDescription()}, 
-    })}, [id])
-  
-  if (isLoading) return <div className="spinner-wrapper"><Spinner/></div>
+  if (isLoading) return <div className="spinner-wrapper"><Spinner/></div> 
   
   return (
     <div className="details">
