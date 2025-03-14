@@ -1,10 +1,15 @@
 
+import { useState } from 'react'
 import { Error } from '../../Error'
 import { Spinner } from '../../Spinner'
 import { StarRating } from '../UI/StarRating/StarRating'
 import { useGetMovieDescription } from '../model/useGetMovieDescription'
 
 export function Details({id}) {
+    const [rating, setRating] = useState(0)
+    const [movies, setMovies] = useState([])
+    const[added, setAdded] = useState(false)
+
     const{description, isLoading, errorMSG} = useGetMovieDescription(id)
   
   if (isLoading) return <div className="spinner-wrapper"><Spinner/></div> 
@@ -26,16 +31,19 @@ export function Details({id}) {
               </div>
             </header>
 
-            {/* <p>{avgRating}</p> */}
 
             <section>
               <div className="rating">
-                <StarRating></StarRating>
-
-                <button className="btn-add">+ Add to list</button>
-                <p>
-                  You rated with movie 7 <span>⭐️</span>
-                </p>
+                {!added && <StarRating rating={rating} setRating={setRating}></StarRating>}                {
+                  !!rating && !added &&(<button className="btn-add" onClick={()=>setAdded(true)}>+ Add to list</button>)
+                }
+                {
+                  added && (
+                    <p>
+                       You rated with movie {rating} <span>⭐️</span>
+                    </p>
+                  )
+                }
               </div>
               <div className="details-overview">
                 <p>
