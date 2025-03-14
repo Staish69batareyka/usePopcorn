@@ -1,19 +1,25 @@
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Error } from '../../Error'
 import { Spinner } from '../../Spinner'
 import { StarRating } from '../UI/StarRating/StarRating'
 import { useGetMovieDescription } from '../model/useGetMovieDescription'
-import { add } from 'lodash'
+
 
 export function Details({id}) {
     const [rating, setRating] = useState(0)
     const [movies, setMovies] = useState([])
-    const[added, setAdded] = useState(false)
+
     let movieIndex = movies?.findIndex((movie) => movie.id === id)
 
     const{description, isLoading, errorMSG} = useGetMovieDescription(id)
   
+    useEffect( ()=> {
+      setRating(0
+      )
+    }, [id])
+
+
   if (isLoading) return <div className="spinner-wrapper"><Spinner/></div> 
   else if(errorMSG) return <Error msg={errorMSG}></Error>
   
@@ -36,9 +42,13 @@ export function Details({id}) {
 
             <section>
               <div className="rating">
-                <StarRating rating={rating} setRating={setRating}></StarRating>             
+                {movieIndex === -1 &&  
+                  (
+                    <StarRating rating={rating} setRating={setRating}></StarRating>             
+                  )
+                }
                 { 
-                  !!rating &&
+                  !!rating && movieIndex === -1  &&
                   (<button className="btn-add" onClick={()=>{setMovies((oldMovies)=> [...oldMovies, {id, rating}])}}>+ Add to list</button>)
                 }
                 {
