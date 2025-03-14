@@ -1,7 +1,7 @@
 
 import { Error } from '../../Error'
 import { Spinner } from '../../Spinner'
-import { StarRating } from '../../StarRating/UI/StarRating'
+import { StarRating } from '../UI/StarRating/StarRating'
 import { useGetMovieDescription } from '../model/useGetMovieDescription'
 
 export function Details({id}) {

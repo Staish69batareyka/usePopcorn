@@ -1,13 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
-export function Star() {
+export function Star({fill, onHover, ind, onMark}) {
+
+
+
   return (
-    <svg
+    <svg 
+          onMouseEnter={() => onHover(ind+1)}
+          onMouseLeave={() => onHover(0)}
+          onClick={() => {onMark(ind+1)}}
           width="23px"
           height="23px"
           viewBox="0 0 24 24"
-          // fill={ind < rating || ind < tempRating ? fillColor : "none"}
-          fill="transparent"
+          fill={fill}
           xmlns="http://www.w3.org/2000/svg"
           style={{ cursor: "pointer" }}
         >
