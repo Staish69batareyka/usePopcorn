@@ -4,11 +4,13 @@ import { Error } from '../../Error'
 import { Spinner } from '../../Spinner'
 import { StarRating } from '../UI/StarRating/StarRating'
 import { useGetMovieDescription } from '../model/useGetMovieDescription'
+import { add } from 'lodash'
 
 export function Details({id}) {
     const [rating, setRating] = useState(0)
     const [movies, setMovies] = useState([])
     const[added, setAdded] = useState(false)
+    let movieIndex = movies?.findIndex((movie) => movie.id === id)
 
     const{description, isLoading, errorMSG} = useGetMovieDescription(id)
   
@@ -16,7 +18,7 @@ export function Details({id}) {
   else if(errorMSG) return <Error msg={errorMSG}></Error>
   
   return (
-    <div className="details">
+  <div className="details">
             <header>
               <button className="btn-back">&larr;</button>
               <img src="https://m.media-amazon.com/images/M/MV5BMDFhNzU4MTMtYzZmNS00ZDEzLTg2MjQtYmUzZDA1ZWU4OTkzXkEyXkFqcGdeQXVyNDQ2MTMzODA@._V1_SX300.jpg" />
@@ -34,13 +36,15 @@ export function Details({id}) {
 
             <section>
               <div className="rating">
-                {!added && <StarRating rating={rating} setRating={setRating}></StarRating>}                {
-                  !!rating && !added &&(<button className="btn-add" onClick={()=>setAdded(true)}>+ Add to list</button>)
+                <StarRating rating={rating} setRating={setRating}></StarRating>             
+                { 
+                  !!rating &&
+                  (<button className="btn-add" onClick={()=>{setMovies((oldMovies)=> [...oldMovies, {id, rating}])}}>+ Add to list</button>)
                 }
                 {
-                  added && (
+                  (movieIndex !== -1) && (
                     <p>
-                       You rated with movie {rating} <span>⭐️</span>
+                       You rated with movie {' '}{movies[movieIndex]?.rating}{' '} <span>⭐️</span>
                     </p>
                   )
                 }
@@ -53,7 +57,7 @@ export function Details({id}) {
                 <p>Directed by: {description?.Director}</p>
               </div>
             </section>
-          </div>
+    </div>
   )
 }
 
