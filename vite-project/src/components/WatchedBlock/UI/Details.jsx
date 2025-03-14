@@ -8,9 +8,9 @@ import { useGetMovieDescription } from '../model/useGetMovieDescription'
 
 export function Details({id}) {
     const [rating, setRating] = useState(0)
-    const [movies, setMovies] = useState([])
+    const [ratedMovies, setRatedMovies] = useState([])
 
-    let movieIndex = movies?.findIndex((movie) => movie.id === id)
+    let movieIndex = ratedMovies?.findIndex((movie) => movie.id === id)
 
     const{description, isLoading, errorMSG} = useGetMovieDescription(id)
   
@@ -49,12 +49,12 @@ export function Details({id}) {
                 }
                 { 
                   !!rating && movieIndex === -1  &&
-                  (<button className="btn-add" onClick={()=>{setMovies((oldMovies)=> [...oldMovies, {id, rating}])}}>+ Add to list</button>)
+                  (<button className="btn-add" onClick={()=>{setRatedMovies((oldMovies)=> [...oldMovies, {id, rating}])}}>+ Add to list</button>)
                 }
                 {
                   (movieIndex !== -1) && (
                     <p>
-                       You rated with movie {' '}{movies[movieIndex]?.rating}{' '} <span>⭐️</span>
+                       You rated with movie {' '}{ratedMovies[movieIndex]?.rating}{' '} <span>⭐️</span>
                     </p>
                   )
                 }
